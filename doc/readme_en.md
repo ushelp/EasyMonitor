@@ -4,6 +4,7 @@ EasyMonitor is a free, open source, cross-platform system running monitoring ser
 
 EasyMonitor provide support for the need to monitor the operating state of the program scene,notification, script execution is equal to function. And all this, just a simple configuration management to complete.
 
+The latest version: `1.3.0-RELEASE`
 
 ## EasyMonitor Feature
 
