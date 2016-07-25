@@ -4,12 +4,12 @@ EasyMonitor 是一个基于 Java 的免费开源跨平台系统运行监控服�
 
 EasyMonitor 能够为需要运行状态监控的程序场景提供一体化支持，提供集合了运行监控，通知发送，脚本执行等于功能。而这一切，仅需进行简单的配置管理即可完成。
 
-最新版本： `1.3.0-RELEASE`
+最新版本： `1.3.1-RELEASE`
 
 ## EasyMonitor 特点
 
 - **开箱即用的监控引擎框架**。
-- **全面的类型监控**。支持 `URL`，`PORT`, `PROCESS`, `USER` 四种类型
+- **全面的类型监控**。支持 `URL`, `PORT`, `PROCESS`, `USER` 四种类型
 - **自动重启检测**。监控到程序异常，对程序进行恢复后，无需重新启动 EasyMonitor
 - **热加载**。支持运行期间热修改 `easymonitor.properties`，修改监控配置参数无需重启 EasyMonitor
 - **灵活的调度配置**。支持基于 `CronExpression` 的监控任务调度
@@ -36,11 +36,11 @@ EasyMonitor 能够为需要运行状态监控的程序场景提供一体化支�
 ## MonitorConfiguration
 - `MonitorConfiguration` 对象，封装了每一项监控服务所需的相关数据和配置信息（Basic），完全配置信息（Properties），监控验证器（MonitorValidator）和发送对象列表（SenderImpls）。
 
- ![EasyMonitor Three Components](images/MonitorConfiguration.png)
+ ![EasyMonitor Configuration](images/MonitorConfiguration.png)
 
 - EasyMonitor 会根据 `MonitorConfiguration` 对象，创建监控 Job。
 
- ![EasyMonitor Three Components](images/MonitorConfigurationJob.png)
+ ![EasyMonitor Configuration Job](images/MonitorConfigurationJob.png)
 
 ## Properties
 
@@ -48,7 +48,7 @@ EasyMonitor 能够为需要运行状态监控的程序场景提供一体化支�
 
 ### 配置结构
 
-![EasyMonitor Three Components](images/easymonitorProperties.png)
+![EasyMonitor Properties](images/easymonitorProperties.png)
 
 ### **全局配置**（作为监控服务配置的全局默认值，可选）
 
@@ -132,7 +132,7 @@ easymonitor.[url|port|process|user].NAME.mail.sender.title=sendermail_title
 easymonitor.[url|port|process|user].NAME.mail.sender.template=mail.tpl
 easymonitor.[url|port|process|user].NAME.mail.sender.interval=1800
 
-easymonitor.[url|port|process|user].NAME.sender.impl=userSenderClass##userSenderClass2
+easymonitor.[url|port|process|user].NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 ```
 
 
@@ -209,7 +209,7 @@ easymonitor.cmd=/user/app/startup.sh
 ## easymonitor.url.NAME.mail.sender.title=sendermail_title
 ## easymonitor.url.NAME.mail.sender.template=mail.tpl
 ## easymonitor.url.NAME.mail.sender.interval=1800
-## easymonitor.url.NAME.sender.impl=userSenderClass##userSenderClass2
+## easymonitor.url.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 
 # Example:
 easymonitor.url.tomcatServer1=http\://127.0.0.1\:8888
@@ -238,7 +238,7 @@ easymonitor.url.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.port.NAME.mail.sender.title=sendermail_title
 ## easymonitor.port.NAME.mail.sender.template=mail.tpl
 ## easymonitor.port.NAME.mail.sender.interval=1800
-## easymonitor.port.NAME.sender.impl=userSenderClass##userSenderClass2
+## easymonitor.port.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 
 # Example:
 easymonitor.port.tomcatServer1=8080
@@ -266,7 +266,7 @@ easymonitor.port.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.process.NAME.mail.sender.title=sendermail_title
 ## easymonitor.process.NAME.mail.sender.template=mail.tpl
 ## easymonitor.process.NAME.mail.sender.interval=1800
-## easymonitor.process.NAME.sender.impl=userSenderClass##userSenderClass2
+## easymonitor.process.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 
 # Example:
 easymonitor.process.tomcatServer1=tomcat
@@ -294,7 +294,7 @@ easymonitor.process.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.user.NAME.mail.sender.title=sendermail_title
 ## easymonitor.user.NAME.mail.sender.template=mail.tpl
 ## easymonitor.user.NAME.mail.sender.interval=1800
-## easymonitor.user.NAME.sender.impl=userSenderClass##userSenderClass2
+## easymonitor.user.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 
 # Example:
 easymonitor.user.fileExistsMonitor=data.txt
@@ -328,13 +328,13 @@ easymonitor.mail.sender.template=yourmail.tpl
 easymonitor.[url|port|process|user].NAME.mail.sender.template=yourmail.tpl
 ```
 
-### 模板内置变量
+### 模板内置 freemarker 变量
 ```
 ${type}: 监控服务类型
 ${name}: 监控服务名称
 ${value}: 监控服务值
 ${stoptime?datetime}: 监控对象停止时间
-${monitorConfiguration}: 监控配置对象
+${monitorConfiguration.XXX}: 监控配置对象属性
 ```
 
 
@@ -357,7 +357,7 @@ ${monitorConfiguration}: 监控配置对象
    Stop:   shutdown.bat
    ```
 
- - **Linux** 
+ - **Unix** 
  
    ```
    Start:  ./startup.sh
@@ -384,13 +384,13 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
 
 ### 使用步骤
 
-1. **Maven dependency**
+1. Maven dependency
 
  ```XML
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.0-RELEASE</version>
+     <version>1.3.1-RELEASE</version>
  </dependency>
  ```
 

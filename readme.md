@@ -6,13 +6,16 @@
 A free, open source, cross-platform system running monitoring service application and engine framework based on Java.
 
 
+![EasyMonitor](doc/images/EasyMonitor.png)
+
+
 ## 中文
 
 EasyMonitor 是一个基于 Java 的免费开源跨平台系统运行监控服务应用及引擎框架。即可开箱即用(**EasyMonitor Application**)，又可以作为监控引擎框架扩展(**EasyMonitor Engine Framework**)。
 
 EasyMonitor 能够为需要运行状态监控的程序场景提供一体化支持，提供集合了运行监控，通知发送，脚本执行等于功能。而这一切，仅需进行简单的配置管理即可完成。
 
-最新版本： `1.3.0-RELEASE`
+最新版本： `1.3.1-RELEASE`
 
 
 [中文说明文档](doc/readme_zh_CN.md)
@@ -42,6 +45,16 @@ If you have more comments, suggestions or ideas, please contact me.
 
 
 
+## Maven
+
+```XML
+<!-- EasyMonitor Engine Framework Maven dependency -->
+<dependency>
+   <groupId>cn.easyproject</groupId>
+   <artifactId>easymonitor</artifactId>
+   <version>1.3.1-RELEASE</version>
+</dependency>
+```
 
 Email：<inthinkcolor@gmail.com>
 

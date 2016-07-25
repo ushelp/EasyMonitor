@@ -4,7 +4,7 @@ EasyMonitor is a free, open source, cross-platform system running monitoring ser
 
 EasyMonitor provide support for the need to monitor the operating state of the program scene,notification, script execution is equal to function. And all this, just a simple configuration management to complete.
 
-The latest version: `1.3.0-RELEASE`
+The latest version: `1.3.1-RELEASE`
 
 ## EasyMonitor Feature
 
@@ -36,11 +36,11 @@ The latest version: `1.3.0-RELEASE`
 ## MonitorConfiguration
 - `MonitorConfiguration`Object, encapsulates the data required for each of the monitoring service, and configuration information (Basic), complete configuration information (Properties), monitor validator (MonitorValidator) and sending a list of objects (SenderImpls).
 
- ![EasyMonitor Three Components](images/MonitorConfiguration.png)
+ ![EasyMonitor Configuration](images/MonitorConfiguration.png)
 
 - EasyMonitor based on `Monitor Configuration` object, creating monitoring Job.
 
- ![EasyMonitor Three Components](images/MonitorConfigurationJob.png)
+ ![EasyMonitor Configuration Job](images/MonitorConfigurationJob.png)
 
 ## Properties
 
@@ -48,7 +48,7 @@ The latest version: `1.3.0-RELEASE`
 
 ### Configuration Structure
 
-![EasyMonitor Three Components](images/easymonitorProperties.png)
+![EasyMonitor Properties](images/easymonitorProperties.png)
 
 ### **Global Config**(default configuration, optional)
 
@@ -120,7 +120,7 @@ The latest version: `1.3.0-RELEASE`
 # easymonitor.[url|port|process|user].NAME.mail.sender.template=mail.tpl
 # easymonitor.[url|port|process|user].NAME.mail.sender.interval=1800
 
-# easymonitor.[url|port|process|user].NAME.sender.impl=userSenderClass##userSenderClass2
+# easymonitor.[url|port|process|user].NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 ```
 
 
@@ -183,7 +183,7 @@ easymonitor.cmd=/user/app/startup.sh
 ## easymonitor.url.NAME.mail.sender.title=sendermail_title
 ## easymonitor.url.NAME.mail.sender.template=mail.tpl
 ## easymonitor.url.NAME.mail.sender.interval=1800
-## easymonitor.url.NAME.sender.impl=userSenderClass##userSenderClass2
+## easymonitor.url.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 
 # Example:
 easymonitor.url.tomcatServer1=http\://127.0.0.1\:8888
@@ -212,7 +212,7 @@ easymonitor.url.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.port.NAME.mail.sender.title=sendermail_title
 ## easymonitor.port.NAME.mail.sender.template=mail.tpl
 ## easymonitor.port.NAME.mail.sender.interval=1800
-## easymonitor.port.NAME.sender.impl=userSenderClass##userSenderClass2
+## easymonitor.port.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 
 # Example:
 easymonitor.port.tomcatServer1=8080
@@ -240,7 +240,7 @@ easymonitor.port.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.process.NAME.mail.sender.title=sendermail_title
 ## easymonitor.process.NAME.mail.sender.template=mail.tpl
 ## easymonitor.process.NAME.mail.sender.interval=1800
-## easymonitor.process.NAME.sender.impl=userSenderClass##userSenderClass2
+## easymonitor.process.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 
 # Example:
 easymonitor.process.tomcatServer1=tomcat
@@ -268,7 +268,7 @@ easymonitor.process.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.user.NAME.mail.sender.title=sendermail_title
 ## easymonitor.user.NAME.mail.sender.template=mail.tpl
 ## easymonitor.user.NAME.mail.sender.interval=1800
-## easymonitor.user.NAME.sender.impl=userSenderClass##userSenderClass2
+## easymonitor.user.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
 
 # Example:
 easymonitor.user.fileExistsMonitor=data.txt
@@ -300,7 +300,7 @@ easymonitor.mail.sender.template=yourmail.tpl
 easymonitor.[url|port|process|user].NAME.mail.sender.template=yourmail.tpl
 ```
 
-### Template built-in variables
+### Template built-in freemarker variables
 ```
 ${type}: Monitoring Service Type
 ${name}: Monitoring Service Name
@@ -330,7 +330,7 @@ ${monitorConfiguration}: Monitoring object
    Stop:   shutdown.bat
    ```
 
- - **Linux** 
+ - **Unix** 
  
    ```
    Start:  ./startup.sh
@@ -358,13 +358,13 @@ You only need to develop your own monitoring and control system ( MonitorValidat
 
 ### Steps for usage
 
-1. **Maven dependency**
+1. Maven dependency
 
  ```XML
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.0-RELEASE</version>
+     <version>1.3.1-RELEASE</version>
  </dependency>
  ```
 
