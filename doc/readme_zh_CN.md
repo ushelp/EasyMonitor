@@ -4,7 +4,7 @@ EasyMonitor 是一个基于 Java 的免费开源跨平台系统运行监控服�
 
 EasyMonitor 能够为需要运行状态监控的程序场景提供一体化支持，提供集合了运行监控，通知发送，脚本执行等于功能。而这一切，仅需进行简单的配置管理即可完成。
 
-最新版本： `1.3.1-RELEASE`
+最新版本： `1.3.2-RELEASE`
 
 ## EasyMonitor 特点
 
@@ -390,7 +390,7 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.1-RELEASE</version>
+     <version>1.3.2-RELEASE</version>
  </dependency>
  ```
 

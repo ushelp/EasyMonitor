@@ -4,7 +4,7 @@ EasyMonitor is a free, open source, cross-platform system running monitoring ser
 
 EasyMonitor provide support for the need to monitor the operating state of the program scene,notification, script execution is equal to function. And all this, just a simple configuration management to complete.
 
-The latest version: `1.3.1-RELEASE`
+The latest version: `1.3.2-RELEASE`
 
 ## EasyMonitor Feature
 
@@ -364,7 +364,7 @@ You only need to develop your own monitoring and control system ( MonitorValidat
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.1-RELEASE</version>
+     <version>1.3.2-RELEASE</version>
  </dependency>
  ```
 
