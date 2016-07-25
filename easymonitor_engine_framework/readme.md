@@ -17,7 +17,7 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.0-RELEASE</version>
+     <version>1.3.2-RELEASE</version>
  </dependency>
  ```
 
