@@ -4,7 +4,7 @@ EasyMonitor is a free, open source, cross-platform system running monitoring ser
 
 EasyMonitor provide support for the need to monitor the operating state of the program scene,notification, script execution is equal to function. And all this, just a simple configuration management to complete.
 
-The latest version: `1.3.2-RELEASE`
+The latest version: `1.5.0-RELEASE`
 
 ## EasyMonitor Feature
 
@@ -16,7 +16,8 @@ The latest version: `1.3.2-RELEASE`
 - **Cycle repeated reminders**. You can configure alerts to be sent to monitor abnormal interval, several reminders reminder prevent omissions.
 - **Enhanced plug-in expansion**. Custom Monitor validator ( `MonitorValidator`) and the sender (` Sender`).
 - **Custom notification templates**. Based on a custom template `freemarker` notification support built-in variables, update the template automatically reloaded.
-- **Remote monitoring**。
+- **Remote monitoring**.
+- **Runtime feedback**. Get monitor runtime infomation
 - **Simple and flexible configuration**. Only a simple configuration management, you can monitor and control configurations for different rules, the sensitivity, use and scenes services, message notification, and command script execution.
 
 
@@ -53,7 +54,7 @@ The latest version: `1.3.2-RELEASE`
 ### **Global Config**(default configuration, optional)
 
  ```properties
- ######################## Global Config(Optional)
+ ;###################### Global Config(Optional)
  
  # Monitor ON or OFF, default is ON
  easymonitor.enable=ON
@@ -65,7 +66,7 @@ The latest version: `1.3.2-RELEASE`
  easymonitor.maxfailure=10
  
  # Receive Error Report mail address
- # You can specify more than one, separated by a ##
+ # You can specify more than one, separated by a ;
  easymonitor.mail.receiver=sendermail@domain.com
  
  # Send Mail Account Config
@@ -87,8 +88,8 @@ The latest version: `1.3.2-RELEASE`
  easymonitor.mail.sender.interval=0
  
  # Execute Command
- # You can specify more than one, separated by a ##
- easymonitor.cmd=/user/app/startup.sh##/user/app/script.sh
+ # You can specify more than one, separated by a ;
+ easymonitor.cmd=/user/app/startup.sh;/user/app/script.sh
  ```
 ### **Monitor Service Configuration**(Overried global configuration)
 - **url** configuration
@@ -120,7 +121,7 @@ The latest version: `1.3.2-RELEASE`
 # easymonitor.[url|port|process|user].NAME.mail.sender.template=mail.tpl
 # easymonitor.[url|port|process|user].NAME.mail.sender.interval=1800
 
-# easymonitor.[url|port|process|user].NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+# easymonitor.[url|port|process|user].NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 ```
 
 
@@ -139,8 +140,8 @@ easymonitor.cronexpression=0/10 * * * * ?
 easymonitor.maxfailure=10
 
 # Receive Error Report mail address
-# You can specify more than one, separated by a ##
-easymonitor.mail.receiver=yourmail@domain.com##youmail2@domai2.org
+# You can specify more than one, separated by a ;
+easymonitor.mail.receiver=yourmail@domain.com;youmail2@domai2.org
 
 # Send Mail Account Config
 # Send Mail Account
@@ -161,7 +162,7 @@ easymonitor.mail.sender.template=mail.tpl
 easymonitor.mail.sender.interval=0
 
 # Execute Command 
-# You can specify more than one, separated by a ##
+# You can specify more than one, separated by a ;
 easymonitor.cmd=/user/app/startup.sh
 
 
@@ -183,16 +184,16 @@ easymonitor.cmd=/user/app/startup.sh
 ## easymonitor.url.NAME.mail.sender.title=sendermail_title
 ## easymonitor.url.NAME.mail.sender.template=mail.tpl
 ## easymonitor.url.NAME.mail.sender.interval=1800
-## easymonitor.url.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+## easymonitor.url.NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 
 # Example:
 easymonitor.url.tomcatServer1=http\://127.0.0.1\:8888
 easymonitor.url.tomcatServer1.cronexpression=0/5 * * * * ?
 easymonitor.url.tomcatServer1.maxfailure=4
-easymonitor.url.tomcatServer1.mail.receiver=yourmail@domain.com##yourmail@domain.org
+easymonitor.url.tomcatServer1.mail.receiver=yourmail@domain.com;yourmail@domain.org
 easymonitor.url.tomcatServer1.mail.sender.interval=30
 easymonitor.url.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
-# easymonitor.url.tomcatServer1.sender.impl=user.SMSSender##user.OtherSender
+# easymonitor.url.tomcatServer1.sender.impl=user.SMSSender;user.OtherSender
 
 
 ############ Port Monitor(can override global config)
@@ -212,14 +213,14 @@ easymonitor.url.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.port.NAME.mail.sender.title=sendermail_title
 ## easymonitor.port.NAME.mail.sender.template=mail.tpl
 ## easymonitor.port.NAME.mail.sender.interval=1800
-## easymonitor.port.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+## easymonitor.port.NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 
 # Example:
 easymonitor.port.tomcatServer1=8080
 easymonitor.port.tomcatServer1.server=localhost
 easymonitor.port.tomcatServer1.cronexpression=0/3 * * * * ?
 easymonitor.port.tomcatServer1.maxfailure=4
-easymonitor.port.tomcatServer1.mail.receiver=yourmail@domain.com##yourmail@domain.org
+easymonitor.port.tomcatServer1.mail.receiver=yourmail@domain.com;yourmail@domain.org
 easymonitor.port.tomcatServer1.mail.sender.interval=30
 easymonitor.port.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 
@@ -240,13 +241,13 @@ easymonitor.port.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.process.NAME.mail.sender.title=sendermail_title
 ## easymonitor.process.NAME.mail.sender.template=mail.tpl
 ## easymonitor.process.NAME.mail.sender.interval=1800
-## easymonitor.process.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+## easymonitor.process.NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 
 # Example:
 easymonitor.process.tomcatServer1=tomcat
 easymonitor.process.tomcatServer1.cronexpression=0/3 * * * * ?
 easymonitor.process.tomcatServer1.maxfailure=4
-easymonitor.process.tomcatServer1.mail.receiver=yourmail@domain.com##yourmail@domain.org
+easymonitor.process.tomcatServer1.mail.receiver=yourmail@domain.com;yourmail@domain.org
 easymonitor.process.tomcatServer1.mail.sender.interval=30
 easymonitor.process.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 
@@ -268,7 +269,7 @@ easymonitor.process.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.user.NAME.mail.sender.title=sendermail_title
 ## easymonitor.user.NAME.mail.sender.template=mail.tpl
 ## easymonitor.user.NAME.mail.sender.interval=1800
-## easymonitor.user.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+## easymonitor.user.NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 
 # Example:
 easymonitor.user.fileExistsMonitor=data.txt
@@ -276,9 +277,9 @@ easymonitor.user.fileExistsMonitor.validatorClass=user.YourFileMonitorValidator
 easymonitor.user.fileExistsMonitor.cmd=/home/app/create.sh
 easymonitor.user.fileExistsMonitor.cronexpression=0/5 * * * * ?
 easymonitor.user.fileExistsMonitor.mail.sender.interval=30
-easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com##yourmail@domain.org
+easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com;yourmail@domain.org
 easymonitor.user.fileExistsMonitor.maxfailure=4
-easymonitor.user.fileExistsMonitor.sender.impl=user.SMSSender##user.OtherSender
+easymonitor.user.fileExistsMonitor.sender.impl=user.SMSSender;user.OtherSender
 ```
 
 
@@ -364,7 +365,7 @@ You only need to develop your own monitoring and control system ( MonitorValidat
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.2-RELEASE</version>
+     <version>1.5.0-RELEASE</version>
  </dependency>
  ```
 
@@ -438,7 +439,7 @@ You only need to develop your own monitoring and control system ( MonitorValidat
     easymonitor.user.fileExistsMonitor.validatorClass=user.FileMonitorValidator
     easymonitor.user.fileExistsMonitor.cronexpression=0/5 * * * * ?
     easymonitor.user.fileExistsMonitor.mail.sender.interval=30
-    easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com##yourmail@domain.org
+    easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com;yourmail@domain.org
     easymonitor.user.fileExistsMonitor.cmd=/home/app/create.sh
     easymonitor.user.fileExistsMonitor.maxfailure=4
     ```
@@ -473,9 +474,67 @@ Only to implements `Sender` interface.
 
  ```properties
   # Example:
-  easymonitor.[url|port|process|user].NAME.sender.impl=user.SMSSender##user.OtherSender
+  easymonitor.[url|port|process|user].NAME.sender.impl=user.SMSSender;user.OtherSender
  ```
 
+### Custom Properties File and Freemarker Configuration object
+To provide more flexibility, EasyMonitor permit before starting Monitor service ** custom Properties File object** ( `easyMonitor.properties`) and ** mail to send Freemarker Configuration object** (` Configuration`).
+
+
+```JAVA
+// Custom Properties File
+EasyMonitor.setPropertiesFile(java.io.File propertiesFile);
+
+// Custom mail to send Freemarker Configuration object
+MailSender.setFreemarkerConfiguration(freemarker.template.Configuration configuration);
+```
+
+Example:
+
+```JAVA
+// Custom EasyMonitor initialization Parameter
+
+// Custom Properties File
+Resource res = new ServletContextResource(sce.getServletContext(), "/easyMonitor.properties"); 
+try {
+    // Properties File 
+    EasyMonitor.setPropertiesFile(res.getFile());
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+// Custom mail to send Freemarker Configuration object
+Configuration cfg= new Configuration(Configuration.VERSION_2_3_23);
+cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+cfg.setDefaultEncoding("UTF-8");
+cfg.setServletContextForTemplateLoading(sce.getServletContext(), "/template");
+// MailSender Configuration
+MailSender.setFreemarkerConfiguration(cfg);
+```
+
+### Runtime access to information
+
+`cn.easyproject.easymonitor.MonitorRuntime` providing information Monitor runtime.
+
+```
+# Monitor controller
+start()
+stop()
+
+# Information when started
+started: Wheter started
+allMonitorsOnStartup
+runningMonitorsOnStartup
+errorJobMonitorsOnStartup
+
+# Configuration information
+getMonitorNames(): All configuration names
+getMonitorsConfigurations(): All configuration objects
+getEnableMonitorsConfigurations(): All enable（enable=ON） configuration objects
+getGlobalMonitorsConfiguration(): Global Configuration object
+getProperties(): Properties object
+getPropertiesFile(): Properties File object
+```
 
 
 ## End

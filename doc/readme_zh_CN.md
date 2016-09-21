@@ -4,7 +4,7 @@ EasyMonitor 是一个基于 Java 的免费开源跨平台系统运行监控服�
 
 EasyMonitor 能够为需要运行状态监控的程序场景提供一体化支持，提供集合了运行监控，通知发送，脚本执行等于功能。而这一切，仅需进行简单的配置管理即可完成。
 
-最新版本： `1.3.2-RELEASE`
+最新版本： `1.5.0-RELEASE`
 
 ## EasyMonitor 特点
 
@@ -17,6 +17,7 @@ EasyMonitor 能够为需要运行状态监控的程序场景提供一体化支�
 - **插件式扩展增强**。自定义监控验证器（`MonitorValidator`） 和发送者(`Sender`)
 - **自定义通知模板**。基于 `freemarker` 的自定义通知模板，支持内置变量使用，更新模板自动重新加载
 - **远程监控**。
+- **运行时信息反馈**。获得监控运行时状况
 - **配置简单灵活**。仅需简单配置管理，即可实现针对不同规则、敏感度、用途和场景服务的监控配置，消息通知，及命令脚本执行
 
 
@@ -66,9 +67,9 @@ easymonitor.cronexpression=0/10 * * * * ?
 easymonitor.maxfailure=10
 
 # Receive Error Report mail address
-# You can specify more than one, separated by a ##
-# 接收监控通知提醒的邮箱列表，多个邮箱使用 ## 分隔
-easymonitor.mail.receiver=yourmail@domain.com##youmail2@domai2.org
+# You can specify more than one, separated by a ;
+# 接收监控通知提醒的邮箱列表，多个邮箱使用 ; 分隔
+easymonitor.mail.receiver=yourmail@domain.com;youmail2@domai2.org
 
 # Send Mail Account Config
 # 邮箱发送者账户配置
@@ -97,8 +98,8 @@ easymonitor.mail.sender.template=mail.tpl
 easymonitor.mail.sender.interval=0
 
 # Execute Command 
-# You can specify more than one, separated by a ##
-# 自动执行的脚本命令，多个脚本命令使用 ## 分隔
+# You can specify more than one, separated by a ;
+# 自动执行的脚本命令，多个脚本命令使用 ; 分隔
 easymonitor.cmd=/user/app/startup.sh
 ```
 
@@ -132,7 +133,7 @@ easymonitor.[url|port|process|user].NAME.mail.sender.title=sendermail_title
 easymonitor.[url|port|process|user].NAME.mail.sender.template=mail.tpl
 easymonitor.[url|port|process|user].NAME.mail.sender.interval=1800
 
-easymonitor.[url|port|process|user].NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+easymonitor.[url|port|process|user].NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 ```
 
 
@@ -154,9 +155,9 @@ easymonitor.cronexpression=0/10 * * * * ?
 easymonitor.maxfailure=10
 
 # Receive Error Report mail address
-# You can specify more than one, separated by a ##
-# 接收监控通知提醒的邮箱列表，多个邮箱使用 ## 分隔
-easymonitor.mail.receiver=yourmail@domain.com##youmail2@domai2.org
+# You can specify more than one, separated by a ;
+# 接收监控通知提醒的邮箱列表，多个邮箱使用 ; 分隔
+easymonitor.mail.receiver=yourmail@domain.com;youmail2@domai2.org
 
 # Send Mail Account Config
 # 邮箱发送者账户配置
@@ -185,8 +186,8 @@ easymonitor.mail.sender.template=mail.tpl
 easymonitor.mail.sender.interval=0
 
 # Execute Command 
-# You can specify more than one, separated by a ##
-# 自动执行的脚本命令，多个脚本命令使用 ## 分隔
+# You can specify more than one, separated by a ;
+# 自动执行的脚本命令，多个脚本命令使用 ; 分隔
 easymonitor.cmd=/user/app/startup.sh
 
 
@@ -209,16 +210,16 @@ easymonitor.cmd=/user/app/startup.sh
 ## easymonitor.url.NAME.mail.sender.title=sendermail_title
 ## easymonitor.url.NAME.mail.sender.template=mail.tpl
 ## easymonitor.url.NAME.mail.sender.interval=1800
-## easymonitor.url.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+## easymonitor.url.NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 
 # Example:
 easymonitor.url.tomcatServer1=http\://127.0.0.1\:8888
 easymonitor.url.tomcatServer1.cronexpression=0/5 * * * * ?
 easymonitor.url.tomcatServer1.maxfailure=4
-easymonitor.url.tomcatServer1.mail.receiver=yourmail@domain.com##yourmail@domain.org
+easymonitor.url.tomcatServer1.mail.receiver=yourmail@domain.com;yourmail@domain.org
 easymonitor.url.tomcatServer1.mail.sender.interval=30
 easymonitor.url.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
-# easymonitor.url.tomcatServer1.sender.impl=user.SMSSender##user.OtherSender
+# easymonitor.url.tomcatServer1.sender.impl=user.SMSSender;user.OtherSender
 
 
 ############ Port Monitor(can override global config)
@@ -238,14 +239,14 @@ easymonitor.url.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.port.NAME.mail.sender.title=sendermail_title
 ## easymonitor.port.NAME.mail.sender.template=mail.tpl
 ## easymonitor.port.NAME.mail.sender.interval=1800
-## easymonitor.port.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+## easymonitor.port.NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 
 # Example:
 easymonitor.port.tomcatServer1=8080
 easymonitor.port.tomcatServer1.server=localhost
 easymonitor.port.tomcatServer1.cronexpression=0/3 * * * * ?
 easymonitor.port.tomcatServer1.maxfailure=4
-easymonitor.port.tomcatServer1.mail.receiver=yourmail@domain.com##yourmail@domain.org
+easymonitor.port.tomcatServer1.mail.receiver=yourmail@domain.com;yourmail@domain.org
 easymonitor.port.tomcatServer1.mail.sender.interval=30
 easymonitor.port.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 
@@ -266,13 +267,13 @@ easymonitor.port.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.process.NAME.mail.sender.title=sendermail_title
 ## easymonitor.process.NAME.mail.sender.template=mail.tpl
 ## easymonitor.process.NAME.mail.sender.interval=1800
-## easymonitor.process.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+## easymonitor.process.NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 
 # Example:
 easymonitor.process.tomcatServer1=tomcat
 easymonitor.process.tomcatServer1.cronexpression=0/3 * * * * ?
 easymonitor.process.tomcatServer1.maxfailure=4
-easymonitor.process.tomcatServer1.mail.receiver=yourmail@domain.com##yourmail@domain.org
+easymonitor.process.tomcatServer1.mail.receiver=yourmail@domain.com;yourmail@domain.org
 easymonitor.process.tomcatServer1.mail.sender.interval=30
 easymonitor.process.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 
@@ -294,7 +295,7 @@ easymonitor.process.tomcatServer1.cmd=/home/app/tomcat/bin/startup.sh
 ## easymonitor.user.NAME.mail.sender.title=sendermail_title
 ## easymonitor.user.NAME.mail.sender.template=mail.tpl
 ## easymonitor.user.NAME.mail.sender.interval=1800
-## easymonitor.user.NAME.sender.impl=package.userSenderClass##package.userSenderClass2
+## easymonitor.user.NAME.sender.impl=package.userSenderClass;package.userSenderClass2
 
 # Example:
 easymonitor.user.fileExistsMonitor=data.txt
@@ -302,9 +303,9 @@ easymonitor.user.fileExistsMonitor.validatorClass=user.YourFileMonitorValidator
 easymonitor.user.fileExistsMonitor.cmd=/home/app/create.sh
 easymonitor.user.fileExistsMonitor.cronexpression=0/5 * * * * ?
 easymonitor.user.fileExistsMonitor.mail.sender.interval=30
-easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com##yourmail@domain.org
+easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com;yourmail@domain.org
 easymonitor.user.fileExistsMonitor.maxfailure=4
-easymonitor.user.fileExistsMonitor.sender.impl=user.SMSSender##user.OtherSender
+easymonitor.user.fileExistsMonitor.sender.impl=user.SMSSender;user.OtherSender
 ```
 
 
@@ -390,7 +391,7 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.2-RELEASE</version>
+     <version>1.5.0-RELEASE</version>
  </dependency>
  ```
 
@@ -464,7 +465,7 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
     easymonitor.user.fileExistsMonitor.validatorClass=user.FileMonitorValidator
     easymonitor.user.fileExistsMonitor.cronexpression=0/5 * * * * ?
     easymonitor.user.fileExistsMonitor.mail.sender.interval=30
-    easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com##yourmail@domain.org
+    easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com;yourmail@domain.org
     easymonitor.user.fileExistsMonitor.cmd=/home/app/create.sh
     easymonitor.user.fileExistsMonitor.maxfailure=4
     ```
@@ -496,8 +497,69 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
 
  ```properties
   # Example:
-  easymonitor.[url|port|process|user].NAME.sender.impl=user.SMSSender##user.OtherSender
+  easymonitor.[url|port|process|user].NAME.sender.impl=user.SMSSender;user.OtherSender
  ```
+
+
+### 自定义配置文件和 freemarker 配置对象
+为了提供更多灵活性，EasyMonitor 允许在启动监控服务前自定义**配置文件对象 Properties File**（`easymonitor.properties`） 和邮件发送时的 **freemarker 配置对象**（`Configuration`）。
+
+```JAVA
+// 自定义配置文件对象
+EasyMonitor.setPropertiesFile(java.io.File propertiesFile);
+
+// 自定义邮件发送的 freemarker 配置对象
+MailSender.setFreemarkerConfiguration(freemarker.template.Configuration configuration);
+```
+
+示例：
+
+```JAVA
+// Custom EasyMonitor initialization Parameter
+
+// 自定义配置文件对象
+Resource res = new ServletContextResource(sce.getServletContext(), "/easymonitor.properties"); 
+try {
+    // Properties File 
+    EasyMonitor.setPropertiesFile(res.getFile());
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+// 自定义邮件发送的 freemarker 配置对象
+Configuration cfg= new Configuration(Configuration.VERSION_2_3_23);
+cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+cfg.setDefaultEncoding("UTF-8");
+cfg.setServletContextForTemplateLoading(sce.getServletContext(), "/template");
+// MailSender Configuration
+MailSender.setFreemarkerConfiguration(cfg);
+```
+
+### 运行时信息获取
+
+`cn.easyproject.easymonitor.MonitorRuntime` 提供了监控运行时的信息。
+
+```
+# 监控控制
+start()：启动
+stop()：停止
+
+# 启动后的运行状态信息
+started: 是否启动
+allMonitorsOnStartup：所有配置的服务
+errorJobMonitorsOnStartup：任务启动失败的服务
+runningMonitorsOnStartup：正在运行的服务
+
+# 配置信息
+getMonitorNames()：所有配置的服务名称
+getMonitorsConfigurations()：所有监控服务配置对象
+getEnableMonitorsConfigurations()：所有设为启用（enable=ON）的监控服务配置对象
+getGlobalMonitorsConfiguration()：全局监控配置对象
+getProperties()：Properties对象
+getPropertiesFile()：Properties File 对象
+```
+
+
 
 ## End
 

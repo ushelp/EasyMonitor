@@ -17,7 +17,7 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.2-RELEASE</version>
+     <version>1.5.0-RELEASE</version>
  </dependency>
  ```
 
@@ -91,7 +91,7 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
     easymonitor.user.fileExistsMonitor.validatorClass=user.FileMonitorValidator
     easymonitor.user.fileExistsMonitor.cronexpression=0/5 * * * * ?
     easymonitor.user.fileExistsMonitor.mail.sender.interval=30
-    easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com##yourmail@domain.org
+    easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com;yourmail@domain.org
     easymonitor.user.fileExistsMonitor.cmd=/home/app/create.sh
     easymonitor.user.fileExistsMonitor.maxfailure=4
     ```
@@ -123,8 +123,67 @@ EasyMonitor 同时是一个免费开源跨平台的 Java 监控引擎框架（**
 
  ```properties
   # Example:
-  easymonitor.[url|port|process|user].NAME.sender.impl=user.SMSSender##user.OtherSender
+  easymonitor.[url|port|process|user].NAME.sender.impl=user.SMSSender;user.OtherSender
  ```
+
+### 自定义配置文件和 freemarker 配置对象
+为了提供更多灵活性，EasyMonitor 允许在启动监控服务前自定义**配置文件对象 Properties File**（`easymonitor.properties`） 和邮件发送时的 **freemarker 配置对象**（`Configuration`）。
+
+```JAVA
+// 自定义配置文件对象
+EasyMonitor.setPropertiesFile(java.io.File propertiesFile);
+
+// 自定义邮件发送的 freemarker 配置对象
+MailSender.setFreemarkerConfiguration(freemarker.template.Configuration configuration);
+```
+
+示例：
+
+```JAVA
+// Custom EasyMonitor initialization Parameter
+
+// 自定义配置文件对象
+Resource res = new ServletContextResource(sce.getServletContext(), "/easymonitor.properties"); 
+try {
+    // Properties File 
+    EasyMonitor.setPropertiesFile(res.getFile());
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+// 自定义邮件发送的 freemarker 配置对象
+Configuration cfg= new Configuration(Configuration.VERSION_2_3_23);
+cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+cfg.setDefaultEncoding("UTF-8");
+cfg.setServletContextForTemplateLoading(sce.getServletContext(), "/template");
+// MailSender Configuration
+MailSender.setFreemarkerConfiguration(cfg);
+```
+
+### 运行时信息获取
+
+`cn.easyproject.easymonitor.MonitorRuntime` 提供了监控运行时的信息。
+
+```
+# 监控控制
+start()：启动
+stop()：停止
+
+# 启动后的运行状态信息
+started: 是否启动
+allMonitorsOnStartup：所有配置的服务
+errorJobMonitorsOnStartup：任务启动失败的服务
+runningMonitorsOnStartup：正在运行的服务
+
+# 配置信息
+getMonitorNames()：所有配置的服务名称
+getMonitorsConfigurations()：所有监控服务配置对象
+getEnableMonitorsConfigurations()：所有设为启用（enable=ON）的监控服务配置对象
+getGlobalMonitorsConfiguration()：全局监控配置对象
+getProperties()：Properties对象
+getPropertiesFile()：Properties File 对象
+```
+
 
 
 
@@ -144,7 +203,7 @@ You only need to develop your own monitoring and control system ( MonitorValidat
  <dependency>
      <groupId>cn.easyproject</groupId>
      <artifactId>easymonitor</artifactId>
-     <version>1.3.0-RELEASE</version>
+     <version>1.5.0-RELEASE</version>
  </dependency>
  ```
 
@@ -218,7 +277,7 @@ You only need to develop your own monitoring and control system ( MonitorValidat
     easymonitor.user.fileExistsMonitor.validatorClass=user.FileMonitorValidator
     easymonitor.user.fileExistsMonitor.cronexpression=0/5 * * * * ?
     easymonitor.user.fileExistsMonitor.mail.sender.interval=30
-    easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com##yourmail@domain.org
+    easymonitor.user.fileExistsMonitor.mail.receiver=yourmail@domain.com;yourmail@domain.org
     easymonitor.user.fileExistsMonitor.cmd=/home/app/create.sh
     easymonitor.user.fileExistsMonitor.maxfailure=4
     ```
@@ -253,10 +312,67 @@ Only to implements `Sender` interface.
 
  ```properties
   # Example:
-  easymonitor.[url|port|process|user].NAME.sender.impl=user.SMSSender##user.OtherSender
+  easymonitor.[url|port|process|user].NAME.sender.impl=user.SMSSender;user.OtherSender
  ```
 
+### Custom Properties File and Freemarker Configuration object
+To provide more flexibility, EasyMonitor permit before starting Monitor service ** custom Properties File object** ( `easyMonitor.properties`) and ** mail to send Freemarker Configuration object** (` Configuration`).
 
+
+```JAVA
+// Custom Properties File
+EasyMonitor.setPropertiesFile(java.io.File propertiesFile);
+
+// Custom mail to send Freemarker Configuration object
+MailSender.setFreemarkerConfiguration(freemarker.template.Configuration configuration);
+```
+
+Example:
+
+```JAVA
+// Custom EasyMonitor initialization Parameter
+
+// Custom Properties File
+Resource res = new ServletContextResource(sce.getServletContext(), "/easyMonitor.properties"); 
+try {
+    // Properties File 
+    EasyMonitor.setPropertiesFile(res.getFile());
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+// Custom mail to send Freemarker Configuration object
+Configuration cfg= new Configuration(Configuration.VERSION_2_3_23);
+cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+cfg.setDefaultEncoding("UTF-8");
+cfg.setServletContextForTemplateLoading(sce.getServletContext(), "/template");
+// MailSender Configuration
+MailSender.setFreemarkerConfiguration(cfg);
+```
+
+### Runtime access to information
+
+`cn.easyproject.easymonitor.MonitorRuntime` providing information Monitor runtime.
+
+```
+# Monitor controller
+start()
+stop()
+
+# Information when started
+started: Wheter started
+allMonitorsOnStartup
+runningMonitorsOnStartup
+errorJobMonitorsOnStartup
+
+# Configuration information
+getMonitorNames(): All configuration names
+getMonitorsConfigurations(): All configuration objects
+getEnableMonitorsConfigurations(): All enable（enable=ON） configuration objects
+getGlobalMonitorsConfiguration(): Global Configuration object
+getProperties(): Properties object
+getPropertiesFile(): Properties File object
+```
 
 
 
